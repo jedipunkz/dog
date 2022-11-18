@@ -4,14 +4,15 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"log"
+
+	"github.com/jedipunkz/dog/internal/pkg/datadog/event"
 )
 
 func main() {
-	r, err := myevent.getEvents()
+	r, err := event.GetEvents(120)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 	fmt.Println(r)
 }

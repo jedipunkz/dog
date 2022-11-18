@@ -2,8 +2,9 @@ module github.com/jedipunkz/dog
 
 go 1.19
 
+require github.com/DataDog/datadog-api-client-go/v2 v2.5.0
+
 require (
-	github.com/DataDog/datadog-api-client-go/v2 v2.5.0 // indirect
 	github.com/DataDog/zstd v1.5.0 // indirect
 	github.com/golang/protobuf v1.2.0 // indirect
 	golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e // indirect

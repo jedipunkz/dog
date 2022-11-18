@@ -3,8 +3,7 @@ package event
 import (
 	"context"
 	"encoding/json"
-	"fmt"
-	"os"
+	"time"
 
 	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 	"github.com/DataDog/datadog-api-client-go/v2/api/datadogV1"
@@ -18,12 +17,16 @@ func newDatadogEventsClient() *datadogV1.EventsApi {
 	return api
 }
 
-func getEvents() (string, error) {
+// GetEvents returns a list of events
+func GetEvents(duration time.Duration) (string, error) {
 	ctx := datadog.NewDefaultContext(context.Background())
 	api := newDatadogEventsClient()
-	resp, _, err := api.ListEvents(ctx, 1668784677, 1668785249, *datadogV1.NewListEventsOptionalParameters())
+	resp, _, err := api.ListEvents(
+		ctx,
+		time.Now().Add(time.Minute*-duration).Unix(),
+		time.Now().Unix(),
+		*datadogV1.NewListEventsOptionalParameters())
 
 	responseContent, _ := json.MarshalIndent(resp, "", "  ")
-	fmt.Fprintf(os.Stdout, "Response from `EventsApi.ListEvents`:\n%s\n", responseContent)
 	return string(responseContent), err
 }
