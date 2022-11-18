@@ -10,9 +10,11 @@ import (
 )
 
 func main() {
-	r, err := event.GetEvents(120)
+	var datadogEvent event.DatadogEvent
+
+	events, err := datadogEvent.GetEvents(30)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(r)
+	fmt.Println(events)
 }
